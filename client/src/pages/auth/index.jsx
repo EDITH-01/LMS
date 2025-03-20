@@ -1,9 +1,13 @@
 import React from 'react';
-import { Tabs} from "@/components/ui/tabs";
 import { Link } from 'react-router-dom';
 import { GraduationCap} from 'lucide-react';
-
-const Authpage = () => {
+import { Tabs } from "../../components/ui/tabs"
+import { TabsContent, TabsTrigger } from '@radix-ui/react-tabs';
+function Authpage  () {
+  const[activeTab,setActiveTab]= useState('signin')
+  function handleTabChange(value){
+    setActiveTab(value)
+  }
   return (
     <div className='flex flex-col min-h-screen'>
       <header className='px-4 lg:px-6 h-14 flex items-center border-b'>
@@ -12,8 +16,18 @@ const Authpage = () => {
        <span className="font-extrabold">LMS Learn</span>
        </Link>
       </header>
-      <div className='flex items-center justify-center min-h-screen'>
-      <Tabs></Tabs>
+      <div className='flex items-center justify-center min-h-screen'>\
+        <Tabs value={activeTab} defaultValue="signin" onValueChange={handleTabChange}
+        className='w-full max-w-md'>
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="signin">Sign In</TabsTrigger>
+            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+          </TabsList>
+          <TabsContent value="signin">
+            <CommonForm formControls={signUpFormControls}/>
+          </TabsContent>
+          <TabsContent value='signup'>Sign up</TabsContent>
+        </Tabs>
       </div>
     </div>
   )
