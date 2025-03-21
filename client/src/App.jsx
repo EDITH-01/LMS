@@ -1,5 +1,5 @@
 import{Route,Routes} from "react-router-dom";
-import Authpage from "./pages/auth";
+import Authpage from "./pages/auth/index";
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
    <Routes>
     <Route path="/auth" element={<Authpage/>}/>
    </Routes>
+   <h1>hii</h1>
     </>
   )
 }
