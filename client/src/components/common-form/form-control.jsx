@@ -61,7 +61,8 @@ function FormControls({formControls =[],formData,setFormData}){
                 id={getControlItem.name}
                 name={getControlItem.name}
                 placeholder={getControlItem.placeholder}
-                type={getControlItem.type}value={currentControlItemValue}
+                type={getControlItem.type}
+                value={currentControlItemValue}
                 onChange={(event)=> setFormData({
                     ...formData,
                     [getControlItem.name] : event.target.value

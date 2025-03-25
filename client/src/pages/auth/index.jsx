@@ -7,16 +7,24 @@ import CommonForm from '../../components/common-form';
 import { signUpFormControls,signInFormControls } from '../../config';
 import { AuthContext } from '../../context/auth-context';
 
+
 function Authpage() {
   const [activeTab, setActiveTab] = useState('signin');
   const{  signInFormData,
     setSignInFormData,
     signUpFormData,
-    setSignUpFormData} = useContext(AuthContext);
+    setSignUpFormData,
+    handleRegisterUser} = useContext(AuthContext);
   function handleTabChange(value) {
     setActiveTab(value)
   }
 
+  function checkIfSignInFormIsValid(){
+    return signInFormData && signInFormData.userEmail !== '' && signInFormData.password !== ''
+  }
+  function checkIfSignUpFormIsValid(){
+    return signUpFormData && signUpFormData.userName !=='' && signUpFormData.userEmail !== '' && signUpFormData.password !== ''
+  }
   console.log(signInFormControls);
   
   return (
@@ -45,8 +53,9 @@ function Authpage() {
               <CardContent className="space-y-2">
                <CommonForm formControls={signInFormControls}
                buttonText={"Sign In"}
-               formData={setSignInFormData}
-               setFormData={setSignInFormData}></CommonForm>
+               formData={signInFormData}
+               setFormData={setSignInFormData}
+               isButtonDisabled={!checkIfSignInFormIsValid()}></CommonForm>
               </CardContent>
             </Card>
           </TabsContent>
@@ -59,10 +68,13 @@ function Authpage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
-               <CommonForm formControls={signUpFormControls}
+               <CommonForm 
+               formControls={signUpFormControls}
                buttonText={"Sign Up"}
-               formData={setSignUpFormData}
-               setFormData={setSignUpFormData}></CommonForm>
+               formData={signUpFormData}
+               setFormData={setSignUpFormData}
+               isButtonDisabled={!checkIfSignUpFormIsValid()}
+               handleSubmit={handleRegisterUser}></CommonForm>
               </CardContent>
             </Card>
           </TabsContent>
